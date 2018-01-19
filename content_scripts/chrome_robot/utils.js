@@ -624,3 +624,35 @@ function generateID() {
 	  return v.toString(16);
 	});
 }
+
+// The base function for building a long xpath
+function _unitPathBuilder(element, preferences) {
+	var tag = _getTag(element)
+	for (i = 0; i < preferences.length; i++) {
+		if ((preferences[i] == "for") && element.for) return `/${tag}[@for="${element.for}"]`;
+		if ((preferences[i] == "class") && element.class && (element.class.length > 0)) return `/${tag}[@class="${element.class}"]`;
+		if ((preferences[i] == "title") && element.title) return `/${tag}[@title="${element.title}"]`;
+		if ((preferences[i] == "href") && element.href) return `/${tag}[@href="${element.href}"]`;
+		if ((preferences[i] == "name") && element.name) return `/${tag}[@name="${element.name}"]`;
+		if ((preferences[i] == "id") && element.id) return `/${tag}[@id="${element.id}"]`;
+		if ((preferences[i] == "src") && element.src) return `/${tag}[@src="${element.src}"]`;
+		if ((preferences[i] == "alt") && element.alt) return `/${tag}[@alt="${element.alt}"]`;
+		if ((preferences[i] == "label") && (element.label && element.label !== "")) return `/${tag}[@lable="${element.label}"]`;
+		if ((preferences[i] == "index") && element.index) return `/${tag}`;
+	}
+	return `/${tag}`;
+}
+
+// Building a arranged xpath
+function getPreferencesXPath(element, preferences, layer) {
+	var tempPath = ''
+	var xpath = ''
+	var leafElement = element
+	for (var i = 0; i < layer; i++) {
+		tempPath = _unitPathBuilder(element, preferences)
+		element = element.parentElement
+		xpath = tempPath + xpath
+		}
+	xpath = '/' + xpath
+	return xpath
+}
