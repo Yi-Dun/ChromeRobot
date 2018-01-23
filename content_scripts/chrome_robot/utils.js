@@ -625,34 +625,72 @@ function generateID() {
 	});
 }
 
-// The base function for building a long xpath
+// The function to generate an unit xpath
 function _unitPathBuilder(element, preferences) {
 	var tag = _getTag(element)
+	var loc = `/${tag}`
+	var appendLoc = ''
+	var attrCollection = _attrCollector(element)
 	for (i = 0; i < preferences.length; i++) {
-		if ((preferences[i] == "for") && element.for) return `/${tag}[@for="${element.for}"]`;
-		if ((preferences[i] == "class") && element.class && (element.class.length > 0)) return `/${tag}[@class="${element.class}"]`;
-		if ((preferences[i] == "title") && element.title) return `/${tag}[@title="${element.title}"]`;
-		if ((preferences[i] == "href") && element.href) return `/${tag}[@href="${element.href}"]`;
-		if ((preferences[i] == "name") && element.name) return `/${tag}[@name="${element.name}"]`;
-		if ((preferences[i] == "id") && element.id) return `/${tag}[@id="${element.id}"]`;
-		if ((preferences[i] == "src") && element.src) return `/${tag}[@src="${element.src}"]`;
-		if ((preferences[i] == "alt") && element.alt) return `/${tag}[@alt="${element.alt}"]`;
-		if ((preferences[i] == "label") && (element.label && element.label !== "")) return `/${tag}[@lable="${element.label}"]`;
-		if ((preferences[i] == "index") && element.index) return `/${tag}`;
+		if (attrCollection[preferences[i]][0]) {
+			appendLoc = attrCollection[preferences[i]][1]
+			break
+		}
 	}
-	return `/${tag}`;
+	return `/${tag}` + appendLoc;
 }
 
 // Building a arranged xpath
-function getPreferencesXPath(element, preferences, layer) {
-	var tempPath = ''
-	var xpath = ''
-	var leafElement = element
+function getPreferenceXPath(element, preferences, layer) {
+	var xpath = '';
+	var tempPath = '';
+	var leafElement = element;
 	for (var i = 0; i < layer; i++) {
-		tempPath = _unitPathBuilder(element, preferences)
-		element = element.parentElement
-		xpath = tempPath + xpath
+		tempPath = _unitPathBuilder(element, preferences);
+		element = element.parentElement;
+		xpath = tempPath + xpath;
 		}
-	xpath = '/' + xpath
-	return xpath
+	xpath = '/' + xpath;
+	xpath = 'xpath=(' + xpath + ')' + _getElementXPathIndex(leafElement, xpath);
+	return xpath;
+}
+
+// For removing all the child nodes to get the pure text for a node
+function _removeAllChildrenElement(element){
+	var removedElement = element.cloneNode(true)
+	while (removedElement.firstElementChild){
+		removedElement.firstElementChild.remove()
+	}
+	return removedElement
+}
+
+// The Function to get all the attribute for later using of an element
+function _attrCollector(element){
+	var attrCollection = {}
+	var elementText = getElementText(_removeAllChildrenElement(element))
+	var elementClass = _getFirstClass(element)
+	attrCollection['for'] = [element.for, `[@for="${element.for}"]`];
+	attrCollection['text'] = [elementText, `[text()[contains(., "${elementText}")]]`];
+	attrCollection['class'] = [elementClass, `[contains(normalize-space(@class), "${elementClass}")]`];
+	attrCollection['title'] = [element.title, `[@title="${element.for}"]`];
+	attrCollection['href'] = [element.href, `[@href="${element.getAttribute('href')}"]`];
+	attrCollection['name'] = [element.name, `[@name="${element.name}"]`];
+	attrCollection['id'] = [element.id, `[@id="${element.id}"]`];
+	attrCollection['src'] = [element.src, `[@src="${element.getAttribute('src')}"]`];
+	attrCollection['alt'] = [element.alt, `[@alt="${element.alt}"]`];
+	attrCollection['label'] = [element.label, `[@label="${element.label}"]`];
+	attrCollection['value'] = [element.value, `[@value="${element.value}"]`];
+	attrCollection['index'] = [element.index, ``];
+	return attrCollection
+}
+
+// Function to get the left most class
+function _getFirstClass(element){
+	var classList = []
+	var classString = element.getAttribute('class')
+	if (classString) {
+		classList = classString.trim().split(' ')
+		return classList[0]
+	}
+	return null
 }
