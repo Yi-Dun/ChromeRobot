@@ -82,7 +82,7 @@ function kwClickSmart() {
 function kwOpenContext() {
     for (var i = 0; i < selectedElements.length; i++) {
         var el = selectedElements[i];
-        _addStepToTest("Open Context Menu   \t" + getLocatorForGenericElement(el));
+        _addStepToTest("Open Context Menu   \t" + getLocator(el));
     }
 }
 
@@ -136,14 +136,14 @@ function _checkPressedKey(e) {
 function broadcastPressedKey(key) {
     for (var i = 0; i < selectedElements.length; i++) {
         var el = selectedElements[i];
-        _addStepToTest("Press Key   \t" + getLocatorForGenericElement(el) + "   \t" + key);
+        _addStepToTest("Press Key   \t" + getLocator(el) + "   \t" + key);
     }
 }
 
 function kwFocus() {
     for (var i = 0; i < selectedElements.length; i++) {
         var el = selectedElements[i];
-        _addStepToTest("Focus   \t" + getLocatorForGenericElement(el));
+        _addStepToTest("Focus   \t" + getLocator(el));
     }
 }
 
@@ -164,21 +164,21 @@ function kwMouseDownSmart() {
 function kwMouseUp() {
     for (var i = 0; i < selectedElements.length; i++) {
         var el = selectedElements[i];
-        _addStepToTest("Mouse Up   \t" + getLocatorForGenericElement(el));
+        _addStepToTest("Mouse Up   \t" + getLocator(el));
     }
 }
 
 function kwMouseOver() {
     for (var i = 0; i < selectedElements.length; i++) {
         var el = selectedElements[i];
-        _addStepToTest("Mouse Over   \t" + getLocatorForGenericElement(el));
+        _addStepToTest("Mouse Over   \t" + getLocator(el));
     }
 }
 
 function kwMouseOut() {
     for (var i = 0; i < selectedElements.length; i++) {
         var el = selectedElements[i];
-        _addStepToTest("Mouse Out   \t" + getLocatorForGenericElement(el));
+        _addStepToTest("Mouse Out   \t" + getLocator(el));
     }
 }
 
@@ -189,14 +189,14 @@ function kwWaitUntilPageContains() {
 function kwWaitUntilPageContainsElement() {
     for (var i = 0; i < selectedElements.length; i++) {
         var el = selectedElements[i];
-        _addStepToTest("Wait Until Page Contains Element   \t" + getLocatorForGenericElement(el));
+        _addStepToTest("Wait Until Page Contains Element   \t" + getLocator(el));
     }
 }
 
 function kwWaitUntilElementIsVisible() {
     for (var i = 0; i < selectedElements.length; i++) {
         var el = selectedElements[i];
-        _addStepToTest("Wait Until Element Is Visible   \t" + getLocatorForGenericElement(el));
+        _addStepToTest("Wait Until Element Is Visible   \t" + getLocator(el));
     }
 }
 
@@ -204,7 +204,7 @@ function kwElementShouldBeEnabled() {
     for (var i = 0; i < selectedElements.length; i++) {
         var el = selectedElements[i];
         if (el.tagName == "INPUT") {
-            _addStepToTest("Element Should Be Enabled   \t" + getLocatorForGenericElement(el));
+            _addStepToTest("Element Should Be Enabled   \t" + getLocator(el));
         }
     }
 }
@@ -213,7 +213,7 @@ function kwElementShouldBeDisabled() {
     for (var i = 0; i < selectedElements.length; i++) {
         var el = selectedElements[i];
         if (el.tagName == "INPUT") {
-            _addStepToTest("Element Should Be Disabled   \t" + getLocatorForGenericElement(el));
+            _addStepToTest("Element Should Be Disabled   \t" + getLocator(el));
         }
     }
 }
@@ -231,7 +231,7 @@ function kwElementTextShouldBe() {
 		if (elText) {
 			elText = escapeRobot(elText);
 			elText = escapeSpace(elText);
-			_addStepToTest("Element Text Should Be  \t" + getLocatorForGenericElement(el)  + "  \t" + elText);
+			_addStepToTest("Element Text Should Be  \t" + getLocator(el)  + "  \t" + elText);
 			numElWithText++;
 		}
 	}
@@ -241,14 +241,14 @@ function kwElementTextShouldBe() {
 function kwElementShouldBeVisible() {
     for (var i = 0; i < selectedElements.length; i++) {
         var el = selectedElements[i];
-        _addStepToTest("Element Should Be Visible   \t" + getLocatorForGenericElement(el));
+        _addStepToTest("Element Should Be Visible   \t" + getLocator(el));
     }
 }
 
 function kwElementShouldNotBeVisible() {
     for (var i = 0; i < selectedElements.length; i++) {
         var el = selectedElements[i];
-        _addStepToTest("Element Should Not Be Visible   \t" + getLocatorForGenericElement(el));
+        _addStepToTest("Element Should Not Be Visible   \t" + getLocator(el));
     }
 }
 
