@@ -2,28 +2,26 @@ var availableLocators = [
     "id",
     "name",
     "href",
-    "link",
     "alt",
     "src",
     "value",
     "label",
     "index",
-    "xpath",
-    "class_xpath"
+    "text",
+    "class"
 ];
 
 var locatorMap = {
     'id': "id",
     'name': 'name',
     'href': 'href',
-    'link': 'link',
     'alt': 'alt',
     'src': 'src',
     'value': 'value',
     'label': 'label',
     'index': 'index',
-    'xpath': 'text based xpath',
-    'class_xpath': 'class based xpath'
+    'text': 'text',
+    'class': 'class'
 };
 
 var varDefaultPref = {

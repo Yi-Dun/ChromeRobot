@@ -8,15 +8,14 @@ chrome.storage.sync.get('locPreferences', function(result) {
 		locatorPreferences = [
 		"id", 
 		"name", 
-		"href", 
-		"link", 
+		"href",  
 		"alt", 
 		"src", 
 		"value", 
 		"label", 
 		"index", 
-		"xpath", 
-		"class_xpath"];
+		"text", 
+		"class"];
 	}
 });
 
@@ -118,7 +117,8 @@ function justGetLocator(element) {
 // Defines de locator we are going to use for a specific element
 // Hads a variable for that locator if the option is enabled
 function getLocator(element) {
-	var loc = justGetLocator (element);
+	//var loc = justGetLocator (element); // Temprary swith to get preference xpath
+	var loc = getPreferenceXPath (element, locatorPreferences, 3);
 
 	// Creates a variable for the locator, if the user preference is enabled
 	if (varPreferences.createVarLoc) {
