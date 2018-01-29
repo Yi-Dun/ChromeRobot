@@ -667,10 +667,11 @@ function _removeAllChildrenElement(element){
 // The Function to get all the attribute for later using of an element
 function _attrCollector(element){
 	var attrCollection = {}
-	var elementText = getElementText(_removeAllChildrenElement(element))
+	var elementText = _getXPathText(_removeAllChildrenElement(element))
+	var textCheck = getElementText(_removeAllChildrenElement(element))
 	var elementClass = _getFirstClass(element)
 	attrCollection['for'] = [element.for, `[@for="${element.for}"]`];
-	attrCollection['text'] = [elementText, `[text()[contains(., "${elementText}")]]`];
+	attrCollection['text'] = [textCheck, elementText];
 	attrCollection['class'] = [elementClass, `[contains(normalize-space(@class), "${elementClass}")]`];
 	attrCollection['title'] = [element.title, `[@title="${element.for}"]`];
 	attrCollection['href'] = [element.href, `[@href="${element.getAttribute('href')}"]`];

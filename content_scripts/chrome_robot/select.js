@@ -175,7 +175,8 @@ function _getElementContainer(element, elementContainerIndexes) {
 
     // This option only works for documents inside the same domain
     if (elContainingWindow.frameElement) {
-        element.containerLocator = justGetLocator(elContainingWindow.frameElement);
+        // element.containerLocator = justGetLocator(elContainingWindow.frameElement);
+        element.containerLocator = getLocator(elContainingWindow.frameElement);
         _sendSelectedElToGUI();      
     } 
     // If not on the same domain (or if on top level document) we use this sketchy strategy
@@ -198,7 +199,7 @@ function _getFrameElementFromSrc(absolutePath) {
     var matchedNode = xPathResult.iterateNext();
     //TODO assumes ther will be only one
     if (matchedNode) {
-        var loc = justGetLocator(matchedNode);
+        var loc = getLocator(matchedNode);
         loc = loc.replace(/"/g, '\\"');
         var code = "_updateContainerLocator(\"" + absolutePath + "\", \"" + loc + "\")";
 
